@@ -1,5 +1,7 @@
 import os.path, math
 
+# Test comment for commit. - RD
+
 def clean_up(s):
     ''' Return a version of string s in which all letters have been
     converted to lowercase and punctuation characters have been stripped 
