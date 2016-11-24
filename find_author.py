@@ -29,17 +29,17 @@ def type_token_ratio(text):
 
     #Copy the string, duplicates will be removed from copied list
     cl_text = text[:]  
-    length = len(text) 
-
+     
     #Iterate through list remove elements that aren't words
     for ele in text:
-        if ele == '!' or ele == '!!' or ele == ':)' or ele == ':'or ele == ')':
+        if ele == '!' or ele == '!!' or ele == ':)':
             cl_text.remove(ele)
             
+    length = len(text)        
     word_count = len(cl_text) 
     ttr = word_count /length
     
-    return ttr
+    return ttr 
     
                 
 def hapax_legomana_ratio(text):
