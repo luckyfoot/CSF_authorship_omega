@@ -26,9 +26,20 @@ def type_token_ratio(text):
     TTR is the number of different words divided by the total number of words.
     text is a non-empty list of strings each ending in \n.
     At least one line in text contains a word. '''
-  
-    # To do: Replace this function's body to meet its specification.
-    return 1
+
+    #Copy the string, duplicates will be removed from copied list
+    cl_text = text[:]  
+     
+    #Iterate through list remove elements that aren't words
+    for ele in text:
+        if ele == '!' or ele == '!!' or ele == ':)':
+            cl_text.remove(ele)
+            
+    length = len(text)        
+    word_count = len(cl_text) 
+    ttr = word_count /length
+    
+    return ttr 
     
                 
 def hapax_legomana_ratio(text):
@@ -37,9 +48,25 @@ def hapax_legomana_ratio(text):
     by the total number of words.
     text is a list of strings each ending in \n.
     At least one line in text contains a word.'''
- 
-    # To do: Replace this function's body to meet its specification.
-    return 1
+
+    word_list = text[:]
+    once_list = []
+
+    #For loop to remove non words from list
+    for ele in text:
+        if ele == '!' or ele == '!!' or ele == ':)':
+            word_list.remove(ele)
+        else:
+            clean_up(ele)
+
+    #For loop to find words that only occur once then append them to once list
+    for word in word_list:
+        count = word_list.count(word)
+        if count == 1:
+            once_list.append(word)    
+    
+    return once_list
+
 
 '''
 You don't need this function.
