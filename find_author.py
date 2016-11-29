@@ -139,12 +139,10 @@ def read_directory_name(prompt):
     while control != True:
         dirname = input(prompt)
         try:
-            test = os.listdir(dirname)
-            control = True
-    
+            control = os.path.isdir(dirname)
         except :
             print ("That directory does not exist: ", dirname)
-    
+            
     return dirname 
 
     
