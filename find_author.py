@@ -17,29 +17,48 @@ def average_word_length(text):
     text is a non-empty list of strings each ending in \n.
     At least one line in text contains a word.'''
     
-    # To do: Replace this function's body to meet its specification.
-    return 5.14285714286
     
-
+    text_str = ''.join(text)
+    text_str = text_str.replace('\n', ' ')
+    text_clean = re.split("[!|?|.|,|:)|' ']", text_str)
+    word_list = []
+    total_sum = 0
+    word_total = 0
+    for word in text_clean:
+        if len(word) > 0:
+            word_list.append(word)
+            word_total += 1            
+    for word in word_list:
+        total_sum += len(word)
+    awl = total_sum / word_total
+    
+    return awl
+    
 def type_token_ratio(text):
     ''' Return the type token ratio (TTR) for this text.
     TTR is the number of different words divided by the total number of words.
     text is a non-empty list of strings each ending in \n.
     At least one line in text contains a word. '''
-
-    #Copy the string, duplicates will be removed from copied list
-    cl_text = text[:]  
-     
-    #Iterate through list remove elements that aren't words
-    for ele in text:
-        if ele == '!' or ele == '!!' or ele == ':)':
-            cl_text.remove(ele)
-            
-    length = len(text)        
-    word_count = len(cl_text) 
-    ttr = word_count /length
     
-    return ttr 
+    word_count = 0
+    unq_words = 0
+    
+    text_str = ''.join(text)
+    text_str = text_str.replace('\n', ' ')
+    words = re.split("[!|?|.|,|:)]", text_str)
+    text_str = ''.join(words)
+    words = text_str.split()
+    single_words = words[:]
+    
+    for w in words:
+        word_count += 1
+        while single_words.count(w) > 1:
+            single_words.remove(w)
+    for w in single_words:
+        unq_words += 1
+    ttr = unq_words/word_count
+           
+    return  ttr 
     
                 
 def hapax_legomana_ratio(text):
@@ -49,24 +68,22 @@ def hapax_legomana_ratio(text):
     text is a list of strings each ending in \n.
     At least one line in text contains a word.'''
 
-    word_list = text[:]
-    once_list = []
+    word_count = 0
+    unq_word = 0
+    text_str = ''.join(text)
+    text_str = text_str.replace('\n', ' ')
+    words = re.split("[!|?|.|,|:)]", text_str)
+    text_str = ''.join(words)
+    words = text_str.split()   
 
-    #For loop to remove non words from list
-    for ele in text:
-        if ele == '!' or ele == '!!' or ele == ':)':
-            word_list.remove(ele)
-        else:
-            clean_up(ele)
+    for w in words:
+        word_count += 1
+        if words.count(w) == 1:
+            unq_word += 1
 
-    #For loop to find words that only occur once then append them to once list
-    for word in word_list:
-        count = word_list.count(word)
-        if count == 1:
-            once_list.append(word)    
+    hlr = unq_word / word_count    
     
-    return once_list
-
+    return hlr
 
 '''
 You don't need this function.
