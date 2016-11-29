@@ -104,9 +104,35 @@ def average_sentence_length(text):
     A sentence is defined as a non-empty string of non-terminating
     punctuation surrounded by terminating punctuation
     or beginning or end of file. '''
+    '''
+    declare variable to place sentances after extrenous
+    stuff is removed and word count variable
+    '''
+    clean_list = []
+    num_words = 0
     
-    # To do: Replace this function's body to meet its specification.
-    return 1
+    #cleaning block will return a list of sentances without extranous junk
+    text_str = ''.join(text)
+    text_str = text_str.replace('\n', ' ')
+    split_list = re.split("[.|?|!]", text_str)
+
+    #populate clean list 
+    for line in split_list:
+        if len(line) > 1 :
+            clean_list.append(line)
+            
+    num_sentances = len(clean_list) 
+
+    for sentance in clean_list:
+        counter = sentance.split()
+        for word in counter:
+            if word.isalpha() == True:
+                num_words += 1
+
+    asl = num_words / num_sentances
+    
+    print (clean_list, '\n', asl)
+    return 
     
 
 def avg_sentence_complexity(text):
