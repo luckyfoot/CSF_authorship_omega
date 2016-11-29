@@ -181,12 +181,11 @@ def read_directory_name(prompt):
     control = False
     while control != True:
         dirname = input(prompt)
-        try:
-            control = os.path.isdir(dirname)
-        except :
+        control = os.path.isdir(dirname)
+        if control == False:
             print ("That directory does not exist: ", dirname)
             
-    return dirname 
+    return dirname
 
     
 def compare_signatures(sig1, sig2, weight):
