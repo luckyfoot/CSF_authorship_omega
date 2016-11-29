@@ -135,9 +135,17 @@ def read_directory_name(prompt):
     
     # To do: Complete this function's body to meet its specification.
     # use print ("That directory does not exist: " + dirname)
-
-    dirname = input(prompt)
-    return dirname
+    control = False
+    while control != True:
+        dirname = input(prompt)
+        try:
+            test = os.listdir(dirname)
+            control = True
+    
+        except :
+            print ("That directory does not exist: ", dirname)
+    
+    return dirname 
 
     
 def compare_signatures(sig1, sig2, weight):
