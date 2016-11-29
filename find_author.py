@@ -128,11 +128,9 @@ def average_sentence_length(text):
         for word in counter:
             if word.isalpha() == True:
                 num_words += 1
-
     asl = num_words / num_sentances
     
-    print (clean_list, '\n', asl)
-    return 
+    return asl
     
 
 def avg_sentence_complexity(text):
