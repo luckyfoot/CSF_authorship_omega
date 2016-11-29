@@ -113,10 +113,19 @@ def get_valid_filename(prompt):
     
     # To do: Complete this function's body to meet its specification.
     # use: print ("That file does not exist: " + filename)
-    filename = input(prompt)
-    return filename
-    
     # Do not use any other input or output statements in this function.
+
+    control = False
+    while control != True:
+        filename = input(prompt)
+        try:
+            test = open(filename)
+            test.close()
+            control = True
+        except IOError:
+            print ('That file does not exist: ', filename)
+        
+    return filename
 
     
 def read_directory_name(prompt):
