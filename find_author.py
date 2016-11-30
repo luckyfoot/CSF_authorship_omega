@@ -10,6 +10,8 @@ def clean_up(s):
     result = s.lower().strip(punctuation)
     return result
 
+# HELPER FUNCTION ----------------------------------------------------------------------
+
 def take_words(text):
     ''' Helpter function that takes in string, text, and then splits them on characters
     that aren't from the alphabet. Finally, it filters.'''
@@ -18,7 +20,9 @@ def take_words(text):
     words = re.split("[!|?|.|,|:)|' ']+", split_text)  # aka. ('\s|(?<!\d)[,.]|[,.](?!\d) or [^\w']+
     list_of_words = list(filter(None, words))
     return list_of_words
-    
+
+# LINGUISTIC FEATURES --------------------------------------------------------------------
+
 def average_word_length(text):
     ''' Return the average length of all words in text. Do not
     include surrounding punctuation in words.
@@ -42,27 +46,21 @@ def type_token_ratio(text):
     TTR is the number of different words divided by the total number of words.
     text is a non-empty list of strings each ending in \n.
     At least one line in text contains a word. '''
-    
+
     word_count = 0
     unq_words = 0
-    
-    text_str = ''.join(text)
-    text_str = text_str.replace('\n', ' ')
-    words = re.split("[!|?|.|,|:)]", text_str)
-    text_str = ''.join(words)
-    words = text_str.split()
-    single_words = words[:]
-    
-    for w in words:
+
+    list_of_words = take_words(text)
+    print(list_of_words)
+    single_words = list_of_words[:] # Makes a string copy of words
+    for a_word in list_of_words:
         word_count += 1
-        while single_words.count(w) > 1:
-            single_words.remove(w)
-    for w in single_words:
+        while single_words.count(a_word) > 1:
+            single_words.remove(a_word)
+    for word in single_words:
         unq_words += 1
-    ttr = unq_words/word_count
-           
-    return  ttr 
-    
+    ttr = unq_words / word_count
+    return ttr
                 
 def hapax_legomana_ratio(text):
     ''' Return the hapax_legomana ratio for this text.
@@ -167,7 +165,8 @@ def avg_sentence_complexity(text):
     avg_sentence_complexity = count_phrase / count_sentence
     return avg_sentence_complexity
     
-    
+# --------------------------------------------------------------------------------------
+
 def get_valid_filename(prompt):
     '''Use prompt (a string) to ask the user to type the name of a file. If
     the file does not exist, keep asking until they give a valid filename.
@@ -207,7 +206,8 @@ def read_directory_name(prompt):
             
     return dirname
 
-    
+# COMPARE SIGNATURES -------------------------------------------------------------------
+
 def compare_signatures(sig1, sig2, weight):
     '''Return a non-negative real number indicating the similarity of two 
     linguistic signatures. The smaller the number the more similar the 
