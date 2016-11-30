@@ -90,7 +90,8 @@ def split_on_separators(original, separators):
     determined by splitting the string on any of the separators.
     separators is a string of single-character separators.
 '''   
-    
+
+
 def average_sentence_length(text):
     ''' Return the average number of words per sentence in text.
     text is guaranteed to have at least one sentence.
@@ -99,34 +100,35 @@ def average_sentence_length(text):
     punctuation surrounded by terminating punctuation
     or beginning or end of file. '''
     '''
-    declare variable to place sentances after extrenous
+    Declare variables to place sentences after extraneous
     stuff is removed and word count variable
     '''
     clean_list = []
-    num_words = 0
-    
-    #cleaning block will return a list of sentances without extranous junk
-    text_str = ''.join(text)
-    text_str = text_str.replace('\n', ' ')
-    split_list = re.split("[.|?|!]", text_str)
+    num_words = 1
 
-    #populate clean list 
-    for line in split_list:
-        if len(line) > 1 :
+    # Cleaning block will return a list of sentences without extraneous junk
+    cleaned_sentence = clean_up(''.join(text))
+    sentences = re.split("""[?!.]+""", cleaned_sentence)
+    print(sentences)
+
+    # Populate clean list
+    for line in sentences:
+        if len(line) > 1:
             clean_list.append(line)
-            
-    num_sentances = len(clean_list) 
 
-    for sentance in clean_list:
-        counter = sentance.split()
+    num_sentences = len(clean_list)
+
+    for sentence in clean_list:
+        counter = sentence.split()
         for word in counter:
+        
             if word.isalpha() == True:
                 num_words += 1
-    asl = num_words / num_sentances
-    
+                
+    print(num_words)
+    asl = num_words / num_sentences
     return asl
     
-
 def avg_sentence_complexity(text):
     '''Return the average number of phrases per sentence.
     Terminating punctuation defined as !?.
