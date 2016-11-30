@@ -1,4 +1,11 @@
-# We'd like to give thanks to the many classmates who've helped us with this project. Appreciation to Alexia for the idea behind a helper function for splitting words, to Sam for guidance on signature comparison, and to Isaak for teaching us about functional programming with lambda.
+'''
+Welcome to the Authorship project by Antonio (luckyfoot) and Rosemary (in-verse)
+
+We'd like to give thanks to the many classmates who've helped us with this project.
+Appreciation to Alexia for the idea behind a helper function for splitting words,
+to Sam for guidance on signature comparison, and to Isaak for teaching us about
+functional programming with lambda.
+'''
 
 import os.path, math
 import re
@@ -14,68 +21,31 @@ def clean_up(s):
     return result
 
 
-# HELPER FUNCTION ----------------------------------------------------------------------
+# HELPER FUNCTIONS ---------------------------------------------------------------------
 
 def take_words(text):
-    ''' Helpter function that takes in string, text, and then splits them on characters
+    ''' Helper function that takes in string, text, and then splits them on characters
     that aren't from the alphabet. Finally, it filters.'''
 
     split_text = clean_up(''.join(text))
-    split_text = re.sub('\s+', ' ', split_text)
-    words = re.split("[!|?|.|,|:)|' ']+", split_text)  # aka. ('\s|(?<!\d)[,.]|[,.](?!\d) or [^\w']+
-    list_of_words = list(filter(None, words))
+    split_text = re.sub('\s+', ' ', split_text) # \s looks for non-whitespace character in [^ \t\n\r\f\v] , + allows repetitions
+    words = re.split("[!|?|.|,|:)|' ']+", split_text)  # Pipe through splitting by regular expressions
+    list_of_words = list(filter(None, words)) # Filters and creates a list
 
     return list_of_words
 
 def take_sentences(text):
-    """Returns a list containing sentences. Original string/list is
-    separated, cleaned, and split."""
+    '''Returns a list containing sentences. Original string/list is
+    separated, cleaned, and split.'''
 
-    sentences_list = ''.join(text)  # joins array into a string and does nothing if input is already a string
+    sentences_list = ''.join(text)  # Joins array into a string and does nothing if input is already a string
     sentences_list = clean_up(''.join(sentences_list))
-    sentences_list = re.sub('\s+', ' ', sentences_list)
+    sentences_list = re.sub('\s+', ' ', sentences_list) # Removes \n
+    sentences = re.split("""[?!.]+""", sentences_list) # Splits alongside ?,!, and .
 
-    sentences = re.split("""[?!.]+""", sentences_list)
     return sentences
 
 # LINGUISTIC FEATURES --------------------------------------------------------------------
-
-def average_sentence_length(text):
-    ''' Return the average number of words per sentence in text.
-    text is guaranteed to have at least one sentence.
-    Terminating punctuation defined as !?.
-    A sentence is defined as a non-empty string of non-terminating
-    punctuation surrounded by terminating punctuation
-    or beginning or end of file. '''
-    '''
-    Declare variables to place sentences after extraneous
-    stuff is removed and word count variable
-    '''
-    clean_list = []
-    num_words = 0
-
-    # Cleaning block will return a list of sentences without extraneous junk
-
-    sentences = take_sentences(text)
-
-    # Populate clean list
-    for line in sentences:
-        if len(line) > 1:
-            clean_list.append(line)
-    print(clean_list)
-
-    num_sentences = len(clean_list)
-
-    for sentence in clean_list:
-        counter = sentence.split()
-        for word in counter:
-
-            if word[0].isalpha() == True:
-                print(word)
-                num_words += 1
-    print(num_words, num_sentences)
-    asl = num_words / num_sentences
-    return asl
 
 
 def type_token_ratio(text):
@@ -88,7 +58,7 @@ def type_token_ratio(text):
     unq_words = 0
 
     list_of_words = take_words(text)
-    single_words = list_of_words[:]  # Makes a string copy of words
+    single_words = list_of_words[:]  # Makes a string copy of words to check list_of_words by
     for a_word in list_of_words:
         word_count += 1
         while single_words.count(a_word) > 1:
@@ -118,17 +88,6 @@ def hapax_legomana_ratio(text):
     hlr = unq_word / word_count
     return hlr
 
-
-'''
-You don't need this function.
-you can use re.split(), where you give it a regular expression.
-Regular expressions include '[!\?\.]'
-def split_on_separators(original, separators):
-     Return a list of non-empty, non-blank strings from the original string
-    determined by splitting the string on any of the separators.
-    separators is a string of single-character separators.
-'''
-
 def avg_sentence_complexity(text):
     '''Return the average number of phrases per sentence.
     Terminating punctuation defined as !?.
@@ -153,9 +112,9 @@ def avg_sentence_complexity(text):
 
     for line in clean_list:
         if (':' in line) or (',' in line) or (';' in line):
-            frag_list = frag_list + re.split("[:|;|,]", line)
+            frag_list = frag_list + re.split("[:|;|,]", line) # Create a list that takes phrases from ':',';', and ','
         else:
-            frag_list.append(line)
+            frag_list.append(line) # Also want to include a sentence because 1 sentence by itself = 1 phrase
 
     for sentence in clean_list:
         count_sentence += 1
@@ -172,19 +131,15 @@ def average_sentence_length(text):
     A sentence is defined as a non-empty string of non-terminating
     punctuation surrounded by terminating punctuation
     or beginning or end of file. '''
-    '''
-    Declare variables to place sentences after extraneous
-    stuff is removed and word count variable
-    '''
+
+    #Declare variables to place sentences after extraneous stuff is removed
+
     clean_list = []
     num_words = 0
 
-    # Cleaning block will return a list of sentences without extraneous junk
-
     sentences = take_sentences(text)
 
-    # Populate clean list
-    for line in sentences:
+    for line in sentences: # Populate clean list and double check that each element is not a empty string, ''
         if len(line) > 1:
             clean_list.append(line)
 
@@ -194,12 +149,10 @@ def average_sentence_length(text):
         counter = sentence.split()
         for word in counter:
 
-            if word[0].isalpha() == True:
-
+            if word[0].isalpha() == True: # Checks 0th position of word to see if it's alphabet, if so - its counted as a word
                 num_words += 1
     asl = num_words / num_sentences
     return asl
-
 
 def average_word_length(text):
     """ Returns the average length of all words in the string """
@@ -207,10 +160,10 @@ def average_word_length(text):
     num_words = 0
 
     word_list = take_words(text)
-    num_words = len(word_list)
+    num_words = len(word_list) # Number of words is equal to number of elements in list
 
     num_letters = 0
-    for a_word in word_list:
+    for a_word in word_list: # Number of letters is the number of characters in each word
         num_letters += len(a_word)
 
     average_word_length = num_letters / num_words
@@ -276,7 +229,7 @@ def compare_signatures(sig1, sig2, weight):
     '''
     sig = 0
     pos = 1
-    while pos < 6:
+    while pos < 6: # Happens 5 times
         sig += abs(sig1[pos] - sig2[pos]) * weight[pos]
         pos += 1
     return sig
@@ -286,10 +239,8 @@ def read_signature(filename):
     '''Read a linguistic signature from filename and return it as
     list of features. '''
 
-    file = open(filename, 'r')
-    # the first feature is a string so it doesn't need casting to float
+    file = open(filename, 'r') # Read file
     result = [file.readline()]
-    # all remaining features are real numbers
     for line in file:
         result.append(float(line.strip()))
     return result
