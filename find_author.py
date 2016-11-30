@@ -137,28 +137,32 @@ def avg_sentence_complexity(text):
     or beginning or end of file.
     Phrases are substrings of a sentences separated by
     one or more of the following delimiters ,;: '''
-    #cleaning block will return a list of sentances without extranous junk
+
+    #Cleaning block will return a list of sentences without extraneous junk
     clean_list = []
     frag_list =[]
     count_sentence = 0
     count_phrase = 0
-    text_str = ''.join(text)
-    list_sent = re.split("[.|!|?]",text_str)
-    for ele in list_sent:
-        if len(ele) > 1 :
-            clean_list.append(ele)
+
+    cleaned_sentence = clean_up(''.join(text))
+    sentences = re.split("""[?!.]+""", cleaned_sentence)
+    print(sentences)
+
+    for word in sentences: #Double checking for all words to be greater than 1
+        if len(word) > 1 :
+            clean_list.append(word)
+    
     for line in clean_list:
-        frag_list = re.split("[:|;|,]",line)
-    try:
-        for line in clean_list:
-            if frag_list.count(line) == 0:
-                frag_list.append(line)
-    except:
-        print('Invalid line')
+        if (':' in line) or (',' in line) or (';' in line):
+            frag_list = frag_list + re.split("[:|;|,]",line)
+        else:
+            frag_list.append(line)
+            
     for sentence in clean_list:
         count_sentence += 1
     for phrase in frag_list:
         count_phrase += 1
+
     avg_sentence_complexity = count_phrase / count_sentence
     return avg_sentence_complexity
     
