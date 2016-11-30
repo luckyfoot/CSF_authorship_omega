@@ -28,16 +28,23 @@ def average_word_length(text):
     include surrounding punctuation in words.
     text is a non-empty list of strings each ending in \n.
     At least one line in text contains a word.'''
-    text_clean = take_words(text)
     word_list = []
     total_sum = 0
     word_total = 0
+
+    text_clean = take_words(text)
+    text_clean =  ' '.join(text_clean)
+    check_text = text_clean[:]
+    text_clean = re.sub('\s+', ' ', check_text)
+    text_clean = re.split(' ', text_clean)
+
     for word in text_clean:
         if len(word) > 0:
             word_list.append(word)
             word_total += 1
     for word in word_list:
         total_sum += len(word)
+
     awl = total_sum / word_total
     return awl
     
