@@ -141,9 +141,30 @@ def avg_sentence_complexity(text):
     or beginning or end of file.
     Phrases are substrings of a sentences separated by
     one or more of the following delimiters ,;: '''
-    
-    # To do: Replace this function's body to meet its specification.
-    return 1.0
+    #cleaning block will return a list of sentances without extranous junk
+    clean_list = []
+    frag_list =[]
+    count_sentence = 0
+    count_phrase = 0
+    text_str = ''.join(text)
+    list_sent = re.split("[.|!|?]",text_str)
+    for ele in list_sent:
+        if len(ele) > 1 :
+            clean_list.append(ele)
+    for line in clean_list:
+        frag_list = re.split("[:|;|,]",line)
+    try:
+        for line in clean_list:
+            if frag_list.count(line) == 0:
+                frag_list.append(line)
+    except:
+        print('Invalid line')
+    for sentence in clean_list:
+        count_sentence += 1
+    for phrase in frag_list:
+        count_phrase += 1
+    avg_sentence_complexity = count_phrase / count_sentence
+    return avg_sentence_complexity
     
     
 def get_valid_filename(prompt):
