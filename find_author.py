@@ -11,10 +11,11 @@ def clean_up(s):
     return result
 
 def take_words(text):
-    ''' Takes in string, text, and then splits them on characters 
+    ''' Takes in string, text, and then splits them on characters
     that aren't from the alphabet. Filters to omit spaces.'''
     split_text = ''.join(text)
-    words = re.split("[^\w']+", split_text)     #aka. ('\s|(?<!\d)[,.]|[,.](?!\d)
+    split_text = split_text.replace(r'\n', '')
+    words = re.split("[!|?|.|,|:)|' ']+", split_text)  # aka. ('\s|(?<!\d)[,.]|[,.](?!\d) or [^\w']+
     word_list = list(filter(None, words))
     return word_list
 
