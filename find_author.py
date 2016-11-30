@@ -1,3 +1,5 @@
+# We'd like to give thanks to the many classmates who've helped us with this project. Appreciation to Alexia for the idea behind a helper function for splitting words, to Sam for guidance on signature comparison, and to Isaak for teaching us about functional programming with lambda.
+
 import os.path, math
 import re
 
@@ -15,28 +17,28 @@ def clean_up(s):
 def take_words(text):
     ''' Helpter function that takes in string, text, and then splits them on characters
     that aren't from the alphabet. Finally, it filters.'''
-    split_text = ''.join(text)
-    split_text = split_text.replace(r'\n', ' ')
+
+    split_text = clean_up(''.join(text))
+    split_text = re.sub('\s+', ' ', split_text)
     words = re.split("[!|?|.|,|:)|' ']+", split_text)  # aka. ('\s|(?<!\d)[,.]|[,.](?!\d) or [^\w']+
     list_of_words = list(filter(None, words))
+    
     return list_of_words
 
 # LINGUISTIC FEATURES --------------------------------------------------------------------
 
 def average_word_length(text):
-    ''' Return the average length of all words in text. Do not
+    '''
+     Return the average length of all words in text. Do not
     include surrounding punctuation in words.
     text is a non-empty list of strings each ending in \n.
-    At least one line in text contains a word.'''
+    At least one line in text contains a word.
+    '''
     word_list = []
     total_sum = 0
     word_total = 0
 
     text_clean = take_words(text)
-    text_clean =  ' '.join(text_clean)
-    check_text = text_clean[:]
-    text_clean = re.sub('\s+', ' ', check_text)
-    text_clean = re.split(' ', text_clean)
 
     for word in text_clean:
         if len(word) > 0:
@@ -44,9 +46,9 @@ def average_word_length(text):
             word_total += 1
     for word in word_list:
         total_sum += len(word)
-
     awl = total_sum / word_total
     return awl
+
     
 def type_token_ratio(text):
     ''' Return the type token ratio (TTR) for this text.
