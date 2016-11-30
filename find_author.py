@@ -61,7 +61,7 @@ def type_token_ratio(text):
         unq_words += 1
     ttr = unq_words / word_count
     return ttr
-                
+
 def hapax_legomana_ratio(text):
     ''' Return the hapax_legomana ratio for this text.
     This ratio is the number of words that occur exactly once divided
@@ -71,19 +71,14 @@ def hapax_legomana_ratio(text):
 
     word_count = 0
     unq_word = 0
-    text_str = ''.join(text)
-    text_str = text_str.replace('\n', ' ')
-    words = re.split("[!|?|.|,|:)]", text_str)
-    text_str = ''.join(words)
-    words = text_str.split()   
+    list_of_words = take_words(text)
 
-    for w in words:
+    for a_word in list_of_words:
         word_count += 1
-        if words.count(w) == 1:
+        if list_of_words.count(a_word) == 1:
             unq_word += 1
 
-    hlr = unq_word / word_count    
-    
+    hlr = unq_word / word_count
     return hlr
 
 '''
