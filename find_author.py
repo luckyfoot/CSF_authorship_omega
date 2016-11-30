@@ -10,6 +10,13 @@ def clean_up(s):
     result = s.lower().strip(punctuation)
     return result
 
+def take_words(text):
+    ''' Takes in string, text, and then splits them on characters 
+    that aren't from the alphabet. Filters to omit spaces.'''
+    split_text = ''.join(text)
+    words = re.split("[^\w']+", split_text)     #aka. ('\s|(?<!\d)[,.]|[,.](?!\d)
+    word_list = list(filter(None, words))
+    return word_list
 
 def average_word_length(text):
     ''' Return the average length of all words in text. Do not
