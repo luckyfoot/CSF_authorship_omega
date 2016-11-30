@@ -89,12 +89,10 @@ def hapax_legomana_ratio(text):
 You don't need this function.
 you can use re.split(), where you give it a regular expression.
 Regular expressions include '[!\?\.]'
-
 def split_on_separators(original, separators):
      Return a list of non-empty, non-blank strings from the original string
     determined by splitting the string on any of the separators.
     separators is a string of single-character separators.
-
 '''   
     
 def average_sentence_length(text):
@@ -221,9 +219,12 @@ def compare_signatures(sig1, sig2, weight):
     weight is a list of multiplicative weights to apply to each
     linguistic feature. weight[0] is ignored.
     '''
-    
-    # To do: Replace this function's body to meet its specification.
-    return  0.0
+    sig = 0
+    pos = 1
+    while pos < 6:
+        sig += abs(sig1[pos]-sig2[pos])*weight[pos]
+        pos +=1 
+    return sig
     
 
 def read_signature(filename):
