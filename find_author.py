@@ -11,35 +11,30 @@ def clean_up(s):
     return result
 
 def take_words(text):
-    ''' Takes in string, text, and then splits them on characters
-    that aren't from the alphabet. Filters to omit spaces.'''
+    ''' Helpter function that takes in string, text, and then splits them on characters
+    that aren't from the alphabet. Finally, it filters.'''
     split_text = ''.join(text)
     split_text = split_text.replace(r'\n', ' ')
     words = re.split("[!|?|.|,|:)|' ']+", split_text)  # aka. ('\s|(?<!\d)[,.]|[,.](?!\d) or [^\w']+
-    word_list = list(filter(None, words))
-    return word_list
-
+    list_of_words = list(filter(None, words))
+    return list_of_words
+    
 def average_word_length(text):
     ''' Return the average length of all words in text. Do not
-    include surrounding punctuation in words. 
+    include surrounding punctuation in words.
     text is a non-empty list of strings each ending in \n.
     At least one line in text contains a word.'''
-    
-    
-    text_str = ''.join(text)
-    text_str = text_str.replace('\n', ' ')
-    text_clean = re.split("[!|?|.|,|:)|' ']", text_str)
+    text_clean = take_words(text)
     word_list = []
     total_sum = 0
     word_total = 0
     for word in text_clean:
         if len(word) > 0:
             word_list.append(word)
-            word_total += 1            
+            word_total += 1
     for word in word_list:
         total_sum += len(word)
     awl = total_sum / word_total
-    
     return awl
     
 def type_token_ratio(text):
