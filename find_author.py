@@ -129,42 +129,6 @@ def split_on_separators(original, separators):
     separators is a string of single-character separators.
 '''
 
-
-def average_sentence_length(text):
-    ''' Return the average number of words per sentence in text.
-    text is guaranteed to have at least one sentence.
-    Terminating punctuation defined as !?.
-    A sentence is defined as a non-empty string of non-terminating
-    punctuation surrounded by terminating punctuation
-    or beginning or end of file. '''
-    '''
-    Declare variables to place sentences after extraneous
-    stuff is removed and word count variable
-    '''
-    clean_list = []
-    num_words = 0
-
-    # Cleaning block will return a list of sentences without extraneous junk
-
-    sentences = take_sentences(text)
-
-    # Populate clean list
-    for line in sentences:
-        if len(line) > 1:
-            clean_list.append(line)
-
-    num_sentences = len(clean_list)
-
-    for sentence in clean_list:
-        counter = sentence.split()
-        for word in counter:
-
-            if word[0].isalpha() == True:
-
-                num_words += 1
-    asl = num_words / num_sentences
-    return asl
-
 def avg_sentence_complexity(text):
     '''Return the average number of phrases per sentence.
     Terminating punctuation defined as !?.
@@ -201,6 +165,56 @@ def avg_sentence_complexity(text):
     avg_sentence_complexity = count_phrase / count_sentence
     return avg_sentence_complexity
 
+def average_sentence_length(text):
+    ''' Return the average number of words per sentence in text.
+    text is guaranteed to have at least one sentence.
+    Terminating punctuation defined as !?.
+    A sentence is defined as a non-empty string of non-terminating
+    punctuation surrounded by terminating punctuation
+    or beginning or end of file. '''
+    '''
+    Declare variables to place sentences after extraneous
+    stuff is removed and word count variable
+    '''
+    clean_list = []
+    num_words = 0
+
+    # Cleaning block will return a list of sentences without extraneous junk
+
+    sentences = take_sentences(text)
+
+    # Populate clean list
+    for line in sentences:
+        if len(line) > 1:
+            clean_list.append(line)
+
+    num_sentences = len(clean_list)
+
+    for sentence in clean_list:
+        counter = sentence.split()
+        for word in counter:
+
+            if word[0].isalpha() == True:
+
+                num_words += 1
+    asl = num_words / num_sentences
+    return asl
+
+
+def average_word_length(text):
+    """ Returns the average length of all words in the string """
+    num_letters = 0
+    num_words = 0
+
+    word_list = take_words(text)
+    num_words = len(word_list)
+
+    num_letters = 0
+    for a_word in word_list:
+        num_letters += len(a_word)
+
+    average_word_length = num_letters / num_words
+    return average_word_length
 
 # --------------------------------------------------------------------------------------
 
